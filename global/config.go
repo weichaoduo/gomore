@@ -13,12 +13,17 @@ type configType struct {
 	Loglevel    string
 	RpcType     string
 	PackType    string
+	Admin       admin       `toml:"admin"`
 	Connector   connector   `toml:"connector"`
 	Object      object      `toml:"object"`
 	Worker      worker      `toml:"worker"`
 	WorkerAgent workerAgent `toml:"worker_agent"`
 	Hub         hub         `toml:"hub"`
 	Area        area        `toml:"area"`
+}
+
+type admin struct {
+	HttpPort string `toml:"http_port"`
 }
 
 type connector struct {

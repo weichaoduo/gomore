@@ -12,6 +12,9 @@
     loglevel	=	"warn"
     rpc_type	=	"go"  # go | flatbuffer 
     pack_type	=	"bufferio"
+	
+	[admin]
+		http_port = "9090"
 	    
     [connector]
     	websocket_port 	= 7898  

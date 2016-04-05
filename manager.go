@@ -5,13 +5,12 @@
 package main
 
 import (
-	"gomore/global"
-
-	//"code.google.com/p/go.net/websocket"
 	"fmt"
+	"gomore/global"
 	"gomore/hub"
 	log2 "log"
 	//"net"
+	"gomore/admin"
 	"gomore/area"
 	"gomore/connector"
 	"gomore/lib/syncmap"
@@ -159,21 +158,8 @@ func main() {
 	go worker.Start()
 	log.Info("Server started!")
 
-	go httpServer()
+	go admin.HttpServer()
 
 	select {}
-
-}
-
-func httpServer() {
-
-	wd, _ := os.Getwd()
-	http_dir := fmt.Sprintf("%s/wwwroot", wd)
-	fmt.Println("Http_dir:", http_dir)
-	http.Handle("/", http.FileServer(http.Dir(http_dir)))
-
-	go func() {
-		http.ListenAndServe(":9090", nil)
-	}()
 
 }
