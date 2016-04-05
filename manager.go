@@ -76,7 +76,13 @@ func init_logger() {
 		log.SetLevel(log.PanicLevel)
 	}
 
-	fmt.Println("logger status : ", loglevel)
+	fmt.Println("logger status : ", loglevel, runtime.GOOS)
+
+	if runtime.GOOS != "windows" {
+		log.SetFormatter(&log.JSONFormatter{})
+	} else {
+		log.SetFormatter(&log.TextFormatter{})
+	}
 
 }
 
