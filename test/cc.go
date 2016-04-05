@@ -8,7 +8,7 @@ import (
    "time" 
    "encoding/json" 
    "gomore/protocol"
-   "github.com/antonholmquist/jason"  
+   "gomore/lib/antonholmquist/jason"  
    "gomore/global"
    //"io/ioutil"
    "net"

@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"gomore/worker"
 
-	log "github.com/Sirupsen/logrus"
+	log "gomore/lib/Sirupsen/logrus"
 	//"strings"
 	//"io"
 	//sync"
@@ -40,7 +40,7 @@ func SocketConnector(ip string, port int) {
  */
 func listenAcceptTCP(listen *net.TCPListener) {
 
-	go stat_kick()
+	//go stat_kick()
 
 	for {
 		conn, err := listen.AcceptTCP()
@@ -67,14 +67,24 @@ func listenAcceptTCP(listen *net.TCPListener) {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		sid := fmt.Sprintf("%d%d", r.Intn(99999), rand.Intn(999999))
 
-		tcpAddr, err := net.ResolveTCPAddr("tcp4", global.Config.WorkerAgent.Host+":"+string(global.Config.WorkerAgent.Port))
-		checkError(err)
+		req_host := global.Config.WorkerAgent.Host
+		req_port := string(global.Config.WorkerAgent.Port)
+		fmt.Println("tcpAddr:", req_host+":"+req_port)
+		tcpAddr, err := net.ResolveTCPAddr("tcp4", req_host+":"+req_port)
+		if err != nil {
+			fmt.Println("req_conn tcpAddr :", err.Error())
+			return
+		}
+
 		req_conn, err := net.DialTCP("tcp", nil, tcpAddr)
 		//defer req_conn.Close()
-		checkError(err)
+		if err != nil {
+			fmt.Println("req_conn net.DialTCP :", err.Error())
+			return
+		}
 		worker_idf := GetRandWorkerIdf()
 
-		//fmt.Println("RemoteAddr:", conn.RemoteAddr().String() , "sid:", sid ," worker_idf:" ,worker_idf )
+		fmt.Println("RemoteAddr:", conn.RemoteAddr().String(), "sid:", sid, " worker_idf:", worker_idf)
 
 		// 接收worker返回的数据
 		go ReqWorkerAgentWithBufferio(conn, req_conn, sid, worker_idf)

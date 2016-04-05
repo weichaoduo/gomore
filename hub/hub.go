@@ -1,6 +1,6 @@
 //
-//  Load-balancing broker.
-//  Use of Reactor, and other higher level functions.
+//  Hub server
+//
 //
 
 package hub
@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"gomore/area"
 	"gomore/global"
+	log "gomore/lib/Sirupsen/logrus"
+	"gomore/lib/antonholmquist/jason"
 	"gomore/lib/websocket"
 	z_type "gomore/type"
 	"net"
+	"strconv"
 	"time"
-
-	log "github.com/Sirupsen/logrus"
-	"github.com/antonholmquist/jason"
 )
 
 /**
@@ -26,15 +26,13 @@ import (
 func HubServer() {
 
 	hub_host := global.Config.Hub.Hub_host
-	hub_port := global.Config.Hub.Hub_port
-
-	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(hub_host), int(hub_port), ""})
+	hub_port, _ := strconv.Atoi(global.Config.Hub.Hub_port)
+	fmt.Println("Hub  Server :", hub_host, hub_port)
+	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(hub_host), hub_port, ""})
 	if err != nil {
 		fmt.Println("Hub listenTCP Exception:", err.Error())
 		return
 	}
-
-	fmt.Println("Hub  Server :", hub_host, hub_port)
 
 	hubListen(listen)
 }
@@ -330,6 +328,36 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 		conn.Write(js1)
 		conn.Close()
 
+	}
+
+	if cmd == "set" {
+		key, _ := ret_json.GetString("key")
+		data, _ := ret_json.GetString("data")
+		_, err := Set(key, data)
+		if err == nil {
+			conn.Write([]byte(`ok`))
+		} else {
+			conn.Write([]byte(`data server error!`))
+		}
+	}
+
+	if cmd == "get" {
+		key, _ := ret_json.GetString("key")
+		reply, err := Get(key)
+		if err == nil {
+			conn.Write([]byte(reply))
+		} else {
+			conn.Write([]byte(`error`))
+		}
+	}
+	if cmd == "delete" {
+		key, _ := ret_json.GetString("key")
+		_, err := Delete(key)
+		if err == nil {
+			conn.Write([]byte(`ok`))
+		} else {
+			conn.Write([]byte(`data server error!`))
+		}
 	}
 
 }

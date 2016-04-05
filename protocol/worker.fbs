@@ -1,0 +1,20 @@
+// worker.fbs
+namespace worker;
+
+
+enum worker_cmd : short  
+{  
+    REQ_CONNECT    = 1,  
+    REQ_MSG  	   = 2,  
+    WORKER_CONNECT = 3,  
+	WORKER_REPLY   = 4
+}  
+   
+table worker_data { 
+	cmd:worker_cmd=REQ_MSG; 
+	client_idf:string;
+	worker_idf:string; 
+	data:string; 
+}
+
+root_type worker_data;

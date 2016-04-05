@@ -2,9 +2,9 @@ package hub
 
 import (
 	"fmt"
-	"time"
 	"gomore/global"
 	z_type "gomore/type"
+	"time"
 
 	"github.com/garyburd/redigo/redis"
 )
@@ -76,26 +76,26 @@ func NewPool(server, password string) *redis.Pool {
 	}
 }
 
-func Set(key string, args ...interface{}) (interface{}, error) {
+func Set(key string, args ...interface{}) (bool, error) {
 
 	Pool = NewPool(global.Config.Object.RedisHost+":"+string(global.Config.Object.RedisPort), global.Config.Object.RedisPassword)
 	cc := Pool.Get()
-	return cc.Do("Set", `gomore/`+key, args)
+	return redis.Bool(cc.Do("Set", `gomore/`+key, args))
 
 }
 
-func Get(key string) (interface{}, error) {
+func Get(key string) (string, error) {
 
 	Pool = NewPool(global.Config.Object.RedisHost+":"+string(global.Config.Object.RedisPort), global.Config.Object.RedisPassword)
 	cc := Pool.Get()
-	return cc.Do("Get", `gomore/`+key)
+	return redis.String(cc.Do("Get", `gomore/`+key))
 
 }
 
-func Delete(key string) (interface{}, error) {
+func Delete(key string) (bool, error) {
 
 	Pool = NewPool(global.Config.Object.RedisHost+":"+string(global.Config.Object.RedisPort), global.Config.Object.RedisPassword)
 	cc := Pool.Get()
-	return cc.Do("Delete", `gomore/`+key)
+	return redis.Bool(cc.Do("Delete", `gomore/`+key))
 
 }

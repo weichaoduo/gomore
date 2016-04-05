@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"./users"
-	flatbuffers "github.com/google/flatbuffers/go"
+	flatbuffers "gomore/lib/google/flatbuffers/go"
 )
 
 // main.go part 2 of 4

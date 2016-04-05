@@ -9,7 +9,7 @@
     enable 		= 	true 
     status 		= 	"dev"
     version		=	"1.0"
-    loglevel	=	"error"
+    loglevel	=	"warn"
     rpc_type	=	"go"  # go | flatbuffer 
     pack_type	=	"bufferio"
 	    
@@ -35,7 +35,7 @@
 	[worker]
         worker_language	= "php"  
         php_bin_path 	= "d:\\php7\\"
-		worker_num 		= 10
+		worker_num 		= 2
 		agent_host 		= "127.0.0.1"
 		agent_port 		= 7102
 		hub_host 		= "127.0.0.1"
@@ -43,11 +43,11 @@
 
 	[worker_agent]
 		host	=	"127.0.0.1" 
-		port	=	7102
+		port	=	"7102"
 	 
 	[hub] 
     	hub_host = "127.0.0.1" 
-    	hub_port = 7302 
+    	hub_port = "7302" 
  
 	[area]
 		init_area = ["area-global", "area-global2", "area-global3"]

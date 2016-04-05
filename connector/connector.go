@@ -13,7 +13,7 @@ import (
 	"gomore/lib/websocket"
 	"gomore/worker"
 
-	log "github.com/Sirupsen/logrus"
+	log "gomore/lib/Sirupsen/logrus"
 	//"strings"
 	//"io"
 	"sync"

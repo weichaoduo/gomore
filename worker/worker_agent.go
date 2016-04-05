@@ -1,15 +1,15 @@
 package worker
 
 import (
-	"math/rand"
-	"strings"
-	"sync/atomic"
 	"gomore/area"
 	"gomore/global"
+	log "gomore/lib/Sirupsen/logrus"
 	"gomore/protocol"
-
-	log "github.com/Sirupsen/logrus"
-	//"github.com/antonholmquist/jason"
+	"math/rand"
+	"strconv"
+	"strings"
+	"sync/atomic"
+	//"gomore/lib/antonholmquist/jason"
 	//sync"
 	"bufio"
 	"fmt"
@@ -32,9 +32,9 @@ func Worker_agent() {
 
 	worker_agent_host := global.Config.WorkerAgent.Host
 
-	worker_agent_port := global.Config.WorkerAgent.Port
+	worker_agent_port, _ := strconv.Atoi(global.Config.WorkerAgent.Port)
 
-	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(worker_agent_host), int(worker_agent_port), ""})
+	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(worker_agent_host), (worker_agent_port), ""})
 	if err != nil {
 		log.Error("ListenTCP Exception:", err.Error())
 		return

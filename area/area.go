@@ -10,7 +10,7 @@ import (
 	"gomore/global"
 	"gomore/lib/websocket"
 
-	log "github.com/Sirupsen/logrus"
+	log "gomore/lib/Sirupsen/logrus"
 	//"gomore/locks"
 	"fmt"
 	"gomore/lib/syncmap"

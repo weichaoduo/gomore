@@ -12,9 +12,9 @@ import (
 	"net"
 	"strings"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/antonholmquist/jason"
-	"github.com/robfig/cron"
+	log "gomore/lib/Sirupsen/logrus"
+	"gomore/lib/antonholmquist/jason"
+	"gomore/lib/robfig/cron"
 )
 
 const (

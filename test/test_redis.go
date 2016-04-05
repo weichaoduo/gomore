@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/garyburd/redigo/redis"
+	"gomore/lib/garyburd/redigo/redis"
 )
 
 var (

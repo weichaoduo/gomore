@@ -6,19 +6,17 @@
 package worker
 
 import (
-	log "github.com/Sirupsen/logrus"
-	"github.com/antonholmquist/jason"
-	//"github.com/satori/go.uuid"
+	log "gomore/lib/Sirupsen/logrus"
+	"gomore/lib/antonholmquist/jason"
+	//"gomore/lib/satori/go.uuid"
 	"bufio"
 	"fmt"
+	"gomore/global"
 	"math/rand"
 	"net"
 	"strings"
 	"time"
-	"gomore/global"
 )
-
- 
 
 func workerTaskWithBufferio(index string, host string, port int) {
 
@@ -33,7 +31,7 @@ func workerTaskWithBufferio(index string, host string, port int) {
 	checkError(err)
 	//defer conn.Close()
 	time.Sleep(10 * time.Millisecond)
-	worker_ready := fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_WORKER_CONNECT,  "", idf, "")
+	worker_ready := fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_WORKER_CONNECT, "", idf, "")
 	fmt.Println("worker_ready:", worker_ready)
 	conn.Write([]byte(worker_ready + "\n"))
 
@@ -47,14 +45,14 @@ func workerTaskWithBufferio(index string, host string, port int) {
 		msg, err := reader.ReadString('\n')
 		//fmt.Println( "worker_task recive 5:", msg  )
 		if err != nil {
-			fmt.Println( "worker_task ", " connection error: ", err.Error())
+			fmt.Println("worker_task ", " connection error: ", err.Error())
 			conn.Close()
 			return
 		}
 		if msg == "" {
 			continue
 		}
-		
+
 		//fmt.Println("worker_task from ", worker_idf, " receive str:", string(msg))
 
 		ret_arr := strings.Split(msg, "||")
@@ -69,7 +67,7 @@ func workerTaskWithBufferio(index string, host string, port int) {
 		client_idf = ret_arr[1]
 		worker_idf = ret_arr[2]
 		task_data = ret_arr[3]
-        //fmt.Println("worke task cmd :", cmd )
+		//fmt.Println("worke task cmd :", cmd )
 		if cmd == global.DATA_REQ_MSG {
 
 			worker_json, errjson := jason.NewObjectFromBytes([]byte(task_data))
@@ -79,8 +77,8 @@ func workerTaskWithBufferio(index string, host string, port int) {
 			cmd, _ = worker_json.GetString("cmd")
 			//fmt.Printf(" worker_task logic cmd: %s\n", cmd)
 
-			json := fmt.Sprintf(`{"cmd":"%s","data":"%s"}`, cmd, client_idf )
-			data := fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_WORKER_REPLY,  client_idf, worker_idf, json)
+			json := fmt.Sprintf(`{"cmd":"%s","data":"%s"}`, cmd, client_idf)
+			data := fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_WORKER_REPLY, client_idf, worker_idf, json)
 			//fmt.Println(" post : ", data)
 			_, err = conn.Write([]byte(data + "\n"))
 			checkError(err)
@@ -99,13 +97,9 @@ func workerTaskWithBufferio(index string, host string, port int) {
 //
 func Start() {
 
-	worker_nbrs, err := global.ConfigJson.GetInt64("worker", "worker_num")
-	global.CheckError(err)
-	worker_port, err := global.ConfigJson.GetInt64("worker", "port")
-	global.CheckError(err)
-	
-	worker_host, err := global.ConfigJson.GetString("worker", "host")
-	global.CheckError(err)
+	worker_nbrs := global.Config.Worker.WorkerNum
+	worker_port := global.Config.Worker.AgentPort
+	worker_host := global.Config.Worker.AgentHost
 
 	log.Info("Hub broker ready")
 	for worker_nbr := 0; worker_nbr < int(worker_nbrs); worker_nbr++ {

@@ -23,7 +23,7 @@ import (
 	"runtime"
 	"time"
 	//z_type "gomore/type"
-	log "github.com/Sirupsen/logrus"
+	log "gomore/lib/Sirupsen/logrus"
 )
 
 // 启动一个测试的php worker以处理业务流程
@@ -156,9 +156,24 @@ func main() {
 
 	// 启动worker
 	//go start_php_worker()
-	//go worker.Start()
+	go worker.Start()
 	log.Info("Server started!")
 
+	go httpServer()
+
 	select {}
+
+}
+
+func httpServer() {
+
+	wd, _ := os.Getwd()
+	http_dir := fmt.Sprintf("%s/wwwroot", wd)
+	fmt.Println("Http_dir:", http_dir)
+	http.Handle("/", http.FileServer(http.Dir(http_dir)))
+
+	go func() {
+		http.ListenAndServe(":9090", nil)
+	}()
 
 }
