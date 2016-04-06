@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"gomore/worker"
 
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	//"strings"
 	//"io"
 	//sync"
@@ -26,11 +26,11 @@ func SocketConnector(ip string, port int) {
 
 	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(""), port, ""})
 	if err != nil {
-		log.Error("ListenTCP Exception:", err.Error())
+		golog.Error("ListenTCP Exception:", err.Error())
 		return
 	}
 	// 初始化
-	log.Debug("Game Connetor Server :", ip, port)
+	golog.Debug("Game Connetor Server :", ip, port)
 
 	listenAcceptTCP(listen)
 }
@@ -45,7 +45,7 @@ func listenAcceptTCP(listen *net.TCPListener) {
 	for {
 		conn, err := listen.AcceptTCP()
 		if err != nil {
-			log.Error("AcceptTCP Exception::", err.Error())
+			golog.Error("AcceptTCP Exception::", err.Error())
 			continue
 		}
 
@@ -61,7 +61,7 @@ func listenAcceptTCP(listen *net.TCPListener) {
 
 		// 校验ip地址
 		conn.SetKeepAlive(true)
-		log.Info("RemoteAddr:", conn.RemoteAddr().String())
+		golog.Info("RemoteAddr:", conn.RemoteAddr().String())
 
 		//remoteAddr :=conn.RemoteAddr()
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -181,29 +181,29 @@ func handleConnWithJson(conn *net.TCPConn, req_conn *net.TCPConn, sid string, wo
 		var msg interface{}
 		err := d.Decode(&msg)
 		if err != nil {
-			log.Info(conn.RemoteAddr().String(), " connection error: ", err.Error(), " , sid:", sid)
+			golog.Info(conn.RemoteAddr().String(), " connection error: ", err.Error(), " , sid:", sid)
 			FreeConn(conn, sid)
 			break
 		}
 
-		//log.Info(conn.RemoteAddr().String(), "receive data:", msg)
+		//golog.Info(conn.RemoteAddr().String(), "receive data:", msg)
 		json_encode, err_encode := json.Marshal(msg)
 		if err_encode != nil {
-			log.Error("json.Marshal error:", err_encode.Error())
+			golog.Error("json.Marshal error:", err_encode.Error())
 			conn.Write([]byte{'E', 'O', 'F'})
 			conn.Close()
 			atomic.AddInt32(&global.SumConnections, -1)
 			break
 		}
 		str := string(json_encode)
-		log.Info(conn.RemoteAddr().String(), "receive str:", str)
+		golog.Info(conn.RemoteAddr().String(), "receive str:", str)
 
 		if str != "" {
 
 			worker_data := fmt.Sprintf(`req.msg||%s||%s||%s`, sid, worker_idf, str)
 			_, err_req := req_conn.Write([]byte(worker_data))
 			if err_req != nil {
-				log.Error(" req_conn.Write  error:", err_req.Error())
+				golog.Error(" req_conn.Write  error:", err_req.Error())
 
 			}
 

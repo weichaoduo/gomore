@@ -3,7 +3,7 @@ package worker
 import (
 	"gomore/area"
 	"gomore/global"
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	"gomore/protocol"
 	"math/rand"
 	"strconv"
@@ -36,11 +36,11 @@ func Worker_agent() {
 
 	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(worker_agent_host), (worker_agent_port), ""})
 	if err != nil {
-		log.Error("ListenTCP Exception:", err.Error())
+		golog.Error("ListenTCP Exception:", err.Error())
 		return
 	}
 
-	log.Error("Worker agent  Server :", worker_agent_host, worker_agent_port)
+	golog.Error("Worker agent  Server :", worker_agent_host, worker_agent_port)
 
 	WorkerAgentListen(listen)
 }
@@ -55,14 +55,14 @@ func WorkerAgentListen(listen *net.TCPListener) {
 	for {
 		conn, err := listen.AcceptTCP()
 		if err != nil {
-			log.Error("AcceptTCP Exception::", err.Error(), time.Now().UnixNano())
+			golog.Error("AcceptTCP Exception::", err.Error(), time.Now().UnixNano())
 			break
 		}
 		// 校验ip地址
 		conn.SetKeepAlive(true)
 		defer conn.Close()
 		//conn.SetNoDelay(false)
-		log.Info("RemoteAddr:", conn.RemoteAddr().String())
+		golog.Info("RemoteAddr:", conn.RemoteAddr().String())
 
 		//go handleWorkerWithJson( conn  )
 		go handleWorkerWithBufferio(conn)
@@ -167,14 +167,14 @@ func workeDispath(msg string, conn *net.TCPConn, client_idf *string, worker_idf 
 		// @todo应该自动分配worker
 
 		worker_conn := GetWorkerConn(*worker_idf)
-		log.Info(*worker_idf, worker_conn)
+		golog.Info(*worker_idf, worker_conn)
 		if worker_conn == nil {
 			data = fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_REQ_MSG, *client_idf, *worker_idf, "worker no found!")
 			fmt.Println("worker_conn ", *worker_idf, " no found!")
 			return conn.Write([]byte(data + "\n"))
 		}
 		data = fmt.Sprintf(`%s||%s||%s||%s`, global.DATA_REQ_MSG, *client_idf, *worker_idf, worker_data)
-		log.Info("workeDispath worker_data :", data)
+		golog.Info("workeDispath worker_data :", data)
 		return worker_conn.Write([]byte(data + "\n"))
 	}
 	// worker连接到代理
@@ -199,7 +199,7 @@ func workeDispath(msg string, conn *net.TCPConn, client_idf *string, worker_idf 
 		atomic.AddInt64(&global.Qps, 1)
 		if req_conn != nil {
 			worker_data_byte, _ := protocol.Packet(worker_data)
-			log.Info(worker_data_byte)
+			golog.Info(worker_data_byte)
 			//fmt.Println( "worker.reply  worker_data :" ,  worker_data  );
 			return req_conn.Write([]byte(worker_data + "\n"))
 		}
@@ -302,6 +302,6 @@ func DeleteWorkerConn(worker_idf string) {
 
 func checkError(err error) {
 	if err != nil {
-		log.Error(os.Stderr, "Fatal error: %s", err.Error())
+		golog.Error(os.Stderr, "Fatal error: %s", err.Error())
 	}
 }

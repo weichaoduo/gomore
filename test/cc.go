@@ -43,7 +43,7 @@ func main2() {
 		rand, _ := rand.Int(rand.Reader, max) 
 		reqs  = append( reqs,fmt.Sprintf( `{"token":"%s", "cmd":"socket.user_login","params":{"user":"admin_xbd","password":"258369"}}`  ,rand) )		
 	}
-    //log.Println( "urls:" ,urls  )
+    //golog.Println( "urls:" ,urls  )
 	results := asyncReq( reqs )
   
     i:=0

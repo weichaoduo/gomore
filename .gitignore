@@ -22,3 +22,6 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+test/redis_server/dump.rdb
+*.rdb

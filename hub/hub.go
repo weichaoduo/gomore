@@ -11,13 +11,14 @@ import (
 	"fmt"
 	"gomore/area"
 	"gomore/global"
-	log "gomore/lib/Sirupsen/logrus"
 	"gomore/lib/antonholmquist/jason"
 	"gomore/lib/websocket"
 	z_type "gomore/type"
 	"net"
 	"strconv"
 	"time"
+
+	"gomore/golog"
 )
 
 /**
@@ -30,7 +31,7 @@ func HubServer() {
 	fmt.Println("Hub  Server :", hub_host, hub_port)
 	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(hub_host), hub_port, ""})
 	if err != nil {
-		fmt.Println("Hub listenTCP Exception:", err.Error())
+		golog.Error("Hub listenTCP Exception:", err.Error())
 		return
 	}
 
@@ -45,7 +46,7 @@ func hubListen(listen *net.TCPListener) {
 	for {
 		conn, err := listen.AcceptTCP()
 		if err != nil {
-			log.Error("AcceptTCP Exception::", err.Error(), time.Now().UnixNano())
+			golog.Error("AcceptTCP Exception::", err.Error(), time.Now().UnixNano())
 			break
 		}
 		// 校验ip地址
@@ -129,7 +130,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 	if cmd == "create_channel" {
 
 		name, _ := ret_json.GetString("name")
-		log.Debug(" join_channel ", name)
+		golog.Debug(" join_channel ", name)
 
 		go area.CreateChannel(name, name)
 		global.Channels[name] = ""
@@ -141,7 +142,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 	if cmd == "remove_channel" {
 
 		id, _ := ret_json.GetString("name")
-		log.Debug("remove_channel:", id)
+		golog.Debug("remove_channel:", id)
 		area.RemovChannel(id)
 		conn.Write([]byte(`ok`))
 
@@ -151,7 +152,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 
 		sid, _ := ret_json.GetString("sid")
 		name, _ := ret_json.GetString("name")
-		log.Debug("join_channel:", sid, name)
+		golog.Debug("join_channel:", sid, name)
 
 		// 如果场景不存在，则返回错误
 		exist := area.CheckChannelExist(name)
@@ -169,7 +170,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 
 				user_conn := area.GetConn(sid)
 				channel_host := global.Channels[name]
-				log.Debug(" join_channel ", user_conn, channel_host, sid)
+				golog.Debug(" join_channel ", user_conn, channel_host, sid)
 				user_wsconn := area.GetWsConn(sid)
 
 				// 会话如果属于socket
@@ -198,7 +199,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 
 		sid, _ := ret_json.GetString("sid")
 		name, _ := ret_json.GetString("name")
-		log.Debug("remove_channel:", sid, name)
+		golog.Debug("remove_channel:", sid, name)
 		// 离开场景则关闭此订阅
 		go area.UnSubscribeChannel(name, sid)
 
@@ -213,8 +214,8 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 			}
 		}
 
-		log.Debug("userChannels's ", sid, ":", global.UserChannels[sid])
-		log.Debug("hub_worker leave_channel:", sid, name)
+		golog.Debug("userChannels's ", sid, ":", global.UserChannels[sid])
+		golog.Debug("hub_worker leave_channel:", sid, name)
 		conn.Write([]byte(`ok`))
 	}
 
@@ -252,7 +253,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 			websocket.Message.Send(user_wsconn, fmt.Sprintf("%s\r\n", push_data))
 		}
 
-		log.Debug("hub_worker push to  --------------->:", sid, push_data)
+		golog.Debug("hub_worker push to  --------------->:", sid, push_data)
 		conn.Write([]byte(`ok`))
 	}
 
@@ -261,7 +262,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 		channel, _ := ret_json.GetString("id")
 		data, _ := ret_json.GetString("data")
 		area.Broatcast(channel, data)
-		log.Debug("hub_worker broadcast to :", channel, "   ", data)
+		golog.Debug("hub_worker broadcast to :", channel, "   ", data)
 		conn.Write([]byte(`ok`))
 	}
 
@@ -309,7 +310,7 @@ func hubWorkeDispath(msg []byte, conn *net.TCPConn) {
 			global.SyncUserSessions.Set(sid, user_session)
 		}
 
-		log.Info("User Session  :", sid, user_session)
+		golog.Info("User Session  :", sid, user_session)
 		conn.Write([]byte(`ok`))
 	}
 

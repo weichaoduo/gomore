@@ -6,15 +6,14 @@
 package global
 
 import (
+	"fmt"
+	"gomore/lib/antonholmquist/jason"
+	"gomore/lib/robfig/cron"
 	"gomore/lib/syncmap"
 	"gomore/lib/websocket"
 	z_type "gomore/type"
 	"net"
 	"strings"
-
-	log "gomore/lib/Sirupsen/logrus"
-	"gomore/lib/antonholmquist/jason"
-	"gomore/lib/robfig/cron"
 )
 
 const (
@@ -105,6 +104,6 @@ func DecodeJsonStr(str string) string {
 
 func CheckError(err error) {
 	if err != nil {
-		log.Error("Fatal error: %s", err.Error())
+		fmt.Println("Fatal error: %s", err.Error())
 	}
 }

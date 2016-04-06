@@ -9,7 +9,7 @@
     enable 		= 	true 
     status 		= 	"dev"
     version		=	"1.0"
-    loglevel	=	"warn"
+    loglevel	=	"info"
     rpc_type	=	"go"  # go | flatbuffer 
     pack_type	=	"bufferio"
 	

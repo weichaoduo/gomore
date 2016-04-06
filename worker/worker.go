@@ -6,7 +6,7 @@
 package worker
 
 import (
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	"gomore/lib/antonholmquist/jason"
 	//"gomore/lib/satori/go.uuid"
 	"bufio"
@@ -101,11 +101,11 @@ func Start() {
 	worker_port := global.Config.Worker.AgentPort
 	worker_host := global.Config.Worker.AgentHost
 
-	log.Info("Hub broker ready")
+	golog.Info("Hub broker ready")
 	for worker_nbr := 0; worker_nbr < int(worker_nbrs); worker_nbr++ {
 
 		go workerTaskWithBufferio(fmt.Sprintf("%d", worker_nbr), worker_host, int(worker_port))
 	}
-	log.Info("Hub worker  ready")
+	golog.Info("Hub worker  ready")
 
 }

@@ -1,199 +1,164 @@
-package worker 
+package worker
 
 import (
-
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	"gomore/lib/antonholmquist/jason"
 	"gomore/lib/robfig/cron"
 	//"fmt"
-	z_type "gomore/type"
-	"gomore/global"
 	"gomore/area"
+	"gomore/global"
+	z_type "gomore/type"
+	"os"
 	"path/filepath"
 	"strings"
-	"os"
 	//"net"
 )
 
-
-
 // 获取服务器的根路径
-func GetBase(  ) string {
-	 
+func GetBase() string {
+
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
-		log.Error("GetBase Error ", err.Error() )
+		golog.Error("GetBase Error ", err.Error())
 	}
-	return strings.Replace(dir, "\\", "/", -1) 
+	return strings.Replace(dir, "\\", "/", -1)
 
 }
 
-
-func GetConfig(  ) *jason.Object {
+func GetConfig() *jason.Object {
 
 	return global.ConfigJson
 
 }
 
-func GetEnableStatus(  ) bool {
-    if global.AppConfig.Enable <= 0 {
-			return  false
-		}else{
-		    return  true
-		}
+func GetEnableStatus() bool {
+	if global.AppConfig.Enable <= 0 {
+		return false
+	} else {
+		return true
+	}
 
 }
 
-func Enable(  ) bool {
+func Enable() bool {
 
 	global.AppConfig.Enable = 1
 	return true
 
 }
 
-
-func Disable(  ) bool {
+func Disable() bool {
 
 	global.AppConfig.Enable = 0
 	return true
 
 }
 
-func AddCron( expression string ,exefnc func() ) bool {
-    
-    if cron, ok := global.Crons[expression]; ok {
-    	 log.Info( "cron exist :" , cron )  
-    	 return false
-    } 
-    c := cron.New()
-	c.AddFunc(expression, exefnc  ) 
-	c.Start()
-	global.Crons[expression] = c
-	return  true
-
-}
-
-func RemoveCron( expression string  ) bool {
+func AddCron(expression string, exefnc func()) bool {
 
 	if cron, ok := global.Crons[expression]; ok {
-    	 delete( global.Crons, expression)
-    	 cron.Stop()
-    }else{
-        return false
-    }  
- 
-	return  true
+		golog.Info("cron exist :", cron)
+		return false
+	}
+	c := cron.New()
+	c.AddFunc(expression, exefnc)
+	c.Start()
+	global.Crons[expression] = c
+	return true
 
 }
 
-func Get( key string  ) bool {
+func RemoveCron(expression string) bool {
 
-	return  true
+	if cron, ok := global.Crons[expression]; ok {
+		delete(global.Crons, expression)
+		cron.Stop()
+	} else {
+		return false
+	}
+
+	return true
 
 }
 
-func Set( key string, value string ) bool {
+func Get(key string) bool {
 
-	return  true
+	return true
 
 }
 
+func Set(key string, value string) bool {
 
-func GetSession( sid string ) *z_type.Session {
+	return true
+
+}
+
+func GetSession(sid string) *z_type.Session {
 
 	return nil
 
 }
 
+func Kick(sid string) bool {
 
-func Kick( sid string  ) bool {
-
-	return  true
-
-}
-
-func CreateChannel( id string , name string) bool {
-    
-    area.CreateChannel( id , name  )
-    return  true
-} 
-
-func RemoveChannel( id string ) bool {
-    
-    return  true
-} 
-
-
-func GetChannels( ) bool {
-    
-    return  true
-} 
-
-
-func GetSidsByChannel(  channel_id string  ) bool {
-
-	return  true
+	return true
 
 }
 
+func CreateChannel(id string, name string) bool {
 
-func ChannelAddSid( sid string , id string  ) bool {
+	area.CreateChannel(id, name)
+	return true
+}
 
-	return  true
+func RemoveChannel(id string) bool {
+
+	return true
+}
+
+func GetChannels() bool {
+
+	return true
+}
+
+func GetSidsByChannel(channel_id string) bool {
+
+	return true
 
 }
 
-func ChannelKickSid( sid string , id string  ) bool {
+func ChannelAddSid(sid string, id string) bool {
 
-	return  true
-
-}
-
-
-
-func Push( sid string , msg string  ) bool {
-
-	return  true
+	return true
 
 }
 
+func ChannelKickSid(sid string, id string) bool {
 
-
-func PushBySids( sids []string , msg string  ) bool {
-
-	return  true
+	return true
 
 }
 
-func PushAll(   msg string  ) bool {
+func Push(sid string, msg string) bool {
 
-	return  true
-
-}
-
-
-
-func Broadcast(   msg string  ) bool {
-
-	return  true
+	return true
 
 }
 
+func PushBySids(sids []string, msg string) bool {
 
+	return true
 
+}
 
+func PushAll(msg string) bool {
 
+	return true
 
+}
 
+func Broadcast(msg string) bool {
 
+	return true
 
-
-
-
-
-
-
-
-
-
-
+}

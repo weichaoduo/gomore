@@ -13,7 +13,7 @@ import (
 func HttpServer() {
 
 	wd, _ := os.Getwd()
-	http_dir := fmt.Sprintf("%s/wwwroot", wd)
+	http_dir := fmt.Sprintf("%s/admin/wwwroot", wd)
 	fmt.Println("Http_dir:", http_dir)
 	http.Handle("/", http.FileServer(http.Dir(http_dir)))
 

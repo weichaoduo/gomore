@@ -7,8 +7,8 @@ package main
 import (
 	"fmt"
 	"gomore/global"
+	"gomore/golog"
 	"gomore/hub"
-	log2 "log"
 	//"net"
 	"gomore/admin"
 	"gomore/area"
@@ -22,7 +22,6 @@ import (
 	"runtime"
 	"time"
 	//z_type "gomore/type"
-	log "gomore/lib/Sirupsen/logrus"
 )
 
 // 启动一个测试的php worker以处理业务流程
@@ -30,7 +29,8 @@ func stop_php_worker() {
 
 	c := exec.Command("/bin/sh", "-c", `ps -ef |grep "worker/php/workers.php"  |awk \'{print $2}\' |xargs -i kill -9 {} `)
 	d, _ := c.Output()
-	log.Info("Stop_php_worker: ", string(d))
+
+	golog.Info("Stop_php_worker: ", string(d))
 
 	time.Sleep(time.Second * 1)
 
@@ -43,46 +43,12 @@ func start_php_worker() {
 	wd, _ := os.Getwd()
 	work_num, _ := global.ConfigJson.GetString("worker", "worker_num")
 	argv := []string{fmt.Sprintf("%s/worker/php/workers.php", wd), "start", work_num}
-	log.Info("Argv:", argv)
+	golog.Info("Argv:", argv)
 	c := exec.Command("/usr/bin/php", argv...)
 	d, _ := c.Output()
-	log.Info("Start_php_worker: ", string(d))
+	golog.Info("Start_php_worker: ", string(d))
 
 	time.Sleep(time.Second * 1)
-
-}
-
-// 初始化日志设置
-func init_logger() {
-
-	// init logger
-	loglevel := global.Config.Loglevel
-	if loglevel == "debug" {
-		log.SetLevel(log.DebugLevel)
-	}
-	if loglevel == "error" {
-		log.SetLevel(log.ErrorLevel)
-	}
-	if loglevel == "info" {
-		log.SetLevel(log.InfoLevel)
-	}
-	if loglevel == "warn" {
-		log.SetLevel(log.WarnLevel)
-	}
-	if loglevel == "fatal" {
-		log.SetLevel(log.FatalLevel)
-	}
-	if loglevel == "panic" {
-		log.SetLevel(log.PanicLevel)
-	}
-
-	fmt.Println("logger status : ", loglevel, runtime.GOOS)
-
-	if runtime.GOOS != "windows" {
-		log.SetFormatter(&log.JSONFormatter{})
-	} else {
-		log.SetFormatter(&log.TextFormatter{})
-	}
 
 }
 
@@ -93,7 +59,7 @@ func init_global() {
 	global.Qps = 0
 	/*
 		//worker_nbrs, _ := global.ConfigJson.GetInt64("hub", "number")
-		//log.Error("worker_nbrs:", worker_nbrs)
+		//golog.Error("worker_nbrs:", worker_nbrs)
 		tmp := int(worker_nbrs)
 		var i int
 
@@ -129,9 +95,9 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	go func() {
-		log2.Println(http.ListenAndServe("0.0.0.0:6060", nil))
+		fmt.Println(http.ListenAndServe("0.0.0.0:6060", nil))
 	}()
-
+	golog.InitLogger()
 	global.InitConfig()
 
 	//fmt.Println( global.Config.Connector.MaxConections )
@@ -142,7 +108,6 @@ func main() {
 	//appConfig := &AppConfig{}
 	// 读取配置文件
 
-	init_logger()
 	init_global()
 	go connector.SocketConnector("", global.Config.Connector.SocketPort)
 	//go connector.WebsocketConnector("", global.Config.Connector.WebsocketPort)
@@ -162,7 +127,7 @@ func main() {
 	// 启动worker
 	//go start_php_worker()
 	go worker.Start()
-	log.Info("Server started!")
+	golog.Info("Server started!")
 
 	go admin.HttpServer()
 

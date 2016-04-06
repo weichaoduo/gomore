@@ -15,7 +15,7 @@ import (
 	"gomore/lib/websocket"
 	"gomore/worker"
 
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 
 	//"strings"
 	//"io"
@@ -25,10 +25,10 @@ import (
 func WebsocketConnector(ip string, port int) {
 
 	http.Handle("/", websocket.Handler(WebsocketHandler))
-	log.Info("Websocket Connetor bind :", ip, port)
+	golog.Info("Websocket Connetor bind :", ip, port)
 
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {
-		log.Error("ListenAndServe:", err)
+		golog.Error("ListenAndServe:", err)
 	}
 
 }
@@ -55,7 +55,7 @@ func WebsocketHandler(ws *websocket.Conn) {
 		}
 		if err = websocket.Message.Receive(ws, &str); err != nil {
 
-			log.Error(" websocket.Message.Receive error:", user_sid, "  -->", err.Error())
+			golog.Error(" websocket.Message.Receive error:", user_sid, "  -->", err.Error())
 			if err.Error() == "EOF" {
 
 				FreeWsConn(ws, user_sid)
@@ -81,7 +81,7 @@ func WebsocketHandler(ws *websocket.Conn) {
 
 		go WsHandleConnWithBufferio(ws, req_conn, sid, worker_idf)
 
-		log.Debug("Client Request: " + str)
+		golog.Debug("Client Request: " + str)
 
 	}
 	ws.Write([]byte{'E', 'O', 'F'})

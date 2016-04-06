@@ -13,7 +13,7 @@ import (
 	"gomore/lib/websocket"
 	"gomore/worker"
 
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	//"strings"
 	//"io"
 	"sync"
@@ -62,13 +62,13 @@ func FreeConn(conn *net.TCPConn, sid string) {
 
 	conn.Write([]byte{'E', 'O', 'F'})
 	conn.Close()
-	log.Warn("Sid closing:", sid)
+	golog.Warn("Sid closing:", sid)
 	CloseConn(sid)
 	CloseSession(sid)
 	CloseUserChannel(sid)
 	atomic.AddInt32(&global.SumConnections, -1)
 	area.UserUnSubscribeChannel(sid)
-	log.Info("UserConns length:", len(global.UserConns))
+	golog.Info("UserConns length:", len(global.UserConns))
 
 }
 
@@ -76,13 +76,13 @@ func FreeWsConn(ws *websocket.Conn, sid string) {
 
 	ws.Write([]byte{'E', 'O', 'F'})
 	ws.Close()
-	log.Warn("Sid closing:", sid)
+	golog.Warn("Sid closing:", sid)
 	CloseWsConn(sid)
 	CloseSession(sid)
 	CloseUserChannel(sid)
 	atomic.AddInt32(&global.SumConnections, -1)
 	area.UserUnSubscribeChannel(sid)
-	log.Info("UserConns length:", len(global.UserConns))
+	golog.Info("UserConns length:", len(global.UserConns))
 
 }
 
@@ -102,7 +102,7 @@ func GetRandWorkerIdf() string {
 
 func checkError(err error) {
 	if err != nil {
-		log.Error(os.Stderr, "Fatal error: %s", err.Error())
+		golog.Error(os.Stderr, "Fatal error: %s", err.Error())
 	}
 }
 

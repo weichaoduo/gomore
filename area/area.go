@@ -10,7 +10,7 @@ import (
 	"gomore/global"
 	"gomore/lib/websocket"
 
-	log "gomore/lib/Sirupsen/logrus"
+	"gomore/golog"
 	//"gomore/locks"
 	"fmt"
 	"gomore/lib/syncmap"
@@ -24,18 +24,18 @@ import (
 // 创建一个RPC的场景
 func CreateChannel(id string, name string) {
 
-	log.Info(id, name)
+	golog.Info(id, name)
 	global.RpcChannels = append(global.RpcChannels, id)
 	global.SyncRpcChannelConns = append(global.SyncRpcChannelConns, syncmap.New())
 	global.SyncRpcChannelWsConns = append(global.SyncRpcChannelWsConns, syncmap.New())
-	fmt.Println(global.RpcChannels)
+	//fmt.Println(global.RpcChannels)
 
 }
 
 // 创建一个RPC的场景
 func RemovChannel(id string) {
 
-	log.Info(id)
+	golog.Info(id)
 }
 
 func CheckChannelExist(name string) bool {
@@ -72,7 +72,7 @@ func SubscribeChannel(id string, conn *net.TCPConn, sid string) {
 	if !ok {
 		channel_conns.Set(sid, conn)
 	}
-	//log.Error( global.SyncRpcChannelConns )
+	golog.Info("sid ", sid, "join ", id, global.SyncRpcChannelConns)
 
 }
 
@@ -107,7 +107,7 @@ func CheckUserJoinChannel(id string, sid string) bool {
  */
 func SubscribeWsChannel(id string, ws *websocket.Conn, sid string) {
 
-	log.Info(id, ws, sid)
+	golog.Info(id, ws, sid)
 	index := 0
 	for index = range global.RpcChannels {
 		if global.RpcChannels[index] == id {
@@ -127,7 +127,7 @@ func SubscribeWsChannel(id string, ws *websocket.Conn, sid string) {
  */
 func UnSubscribeChannel(id string, sid string) {
 
-	log.Info(id, sid)
+	golog.Info(id, sid)
 	index := 0
 	for index = range global.RpcChannels {
 		if global.RpcChannels[index] == id {
@@ -161,7 +161,7 @@ func UserUnSubscribeChannel(user_sid string) {
  */
 func Broatcast(id string, msg string) {
 
-	log.Info(id, msg)
+	golog.Info(id, msg)
 	index := 0
 	for index = range global.RpcChannels {
 		if global.RpcChannels[index] == id {
@@ -250,7 +250,7 @@ func ConnRegister(conn *net.TCPConn, user_sid string) {
 
 func WsConnRegister(ws *websocket.Conn, user_sid string) {
 
-	log.Debug("user_sid: ", user_sid)
+	golog.Debug("user_sid: ", user_sid)
 	SubscribeWsChannel("area-global", ws, user_sid)
 
 	_, ok := global.SyncUserWebsocketConns.Get(user_sid)
