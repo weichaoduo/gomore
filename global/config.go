@@ -13,6 +13,7 @@ type configType struct {
 	Loglevel    string
 	RpcType     string
 	PackType    string
+	MyLog       log         `toml:"log"`
 	Admin       admin       `toml:"admin"`
 	Connector   connector   `toml:"connector"`
 	Object      object      `toml:"object"`
@@ -22,6 +23,12 @@ type configType struct {
 	Area        area        `toml:"area"`
 }
 
+type log struct {
+	LogLevel      string `toml:"log_level"`
+	LogBehindType string `toml:"log_behind_type"`
+	MongodbHost   string `toml:"mongodb_host"`
+	MongodbPort   string `toml:"mongodb_port"`
+}
 type admin struct {
 	HttpPort string `toml:"http_port"`
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/weekface/mgorus"
+	//"github.com/rifflock/lfshook"
 )
 
 var Log *logrus.Logger
@@ -21,17 +22,22 @@ func InitLogger() {
 	} else {
 		logrus.SetFormatter(&logrus.TextFormatter{})
 	}
-
 	Log = logrus.New()
-	hooker, err := mgorus.NewHooker("localhost:27017", "db", "collection")
-	if err == nil {
-		Log.Hooks.Add(hooker)
-	} else {
-		fmt.Println("mongodb err:", err)
+
+	fmt.Println("LogBehindType", global.Config.MyLog.LogBehindType)
+	if global.Config.MyLog.LogBehindType == "mongodb" {
+
+		mongodb_server := global.Config.MyLog.MongodbHost + ":" + global.Config.MyLog.MongodbPort
+		hooker, err := mgorus.NewHooker(mongodb_server, "db", "collection")
+		if err == nil {
+			Log.Hooks.Add(hooker)
+		} else {
+			fmt.Println("mongodb err:", err)
+		}
 	}
 
 	// init logger
-	loglevel := global.Config.Loglevel
+	loglevel := global.Config.MyLog.LogLevel
 	if loglevel == "debug" {
 		logrus.SetLevel(logrus.DebugLevel)
 	}

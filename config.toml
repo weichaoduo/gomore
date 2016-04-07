@@ -10,8 +10,14 @@
     status 		= 	"dev"
     version		=	"1.0"
     loglevel	=	"info"
-    rpc_type	=	"go"  # go | flatbuffer 
+    rpc_type	=	"go"  # string | flatbuffer 
     pack_type	=	"bufferio"
+	
+	[mylog]
+		log_level	=	"info"
+		log_behind_type = "mongodb"  
+		mongodb_host = "localhost"
+		mongodb_port = "27017"
 	
 	[admin]
 		http_port = "9090"
