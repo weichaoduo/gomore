@@ -97,8 +97,9 @@ func main() {
 	go func() {
 		fmt.Println(http.ListenAndServe("0.0.0.0:6060", nil))
 	}()
-	golog.InitLogger()
+
 	global.InitConfig()
+	golog.InitLogger()
 
 	//fmt.Println( global.Config.Connector.MaxConections )
 	//fmt.Println( global.Config.Area.Init_area )

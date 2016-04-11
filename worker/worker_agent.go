@@ -81,7 +81,7 @@ func workerPingKick(conn *net.TCPConn, worker_idf string) {
 			continue
 		}
 		ping := fmt.Sprintf(`worker.ping||%s||%s||%d`, "", worker_idf, time.Now().Unix())
-		fmt.Println(ping)
+		//fmt.Println(ping)
 		_, err := conn.Write([]byte(ping + "\n"))
 		if err != nil {
 			break

@@ -13,7 +13,7 @@ type configType struct {
 	Loglevel    string
 	RpcType     string
 	PackType    string
-	MyLog       log         `toml:"log"`
+	Log         log         `toml:"log"`
 	Admin       admin       `toml:"admin"`
 	Connector   connector   `toml:"connector"`
 	Object      object      `toml:"object"`

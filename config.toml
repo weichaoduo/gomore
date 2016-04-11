@@ -13,9 +13,9 @@
     rpc_type	=	"go"  # string | flatbuffer 
     pack_type	=	"bufferio"
 	
-	[mylog]
+	[log]
 		log_level	=	"info"
-		log_behind_type = "mongodb"  
+		log_behind_type = "console"  
 		mongodb_host = "localhost"
 		mongodb_port = "27017"
 	
