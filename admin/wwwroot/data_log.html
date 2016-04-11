@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+   <meta charset="utf-8" />
+   <title>Gomore</title>
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <link href="admin_lap/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="admin_lap/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+   <link href="admin_lap/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   <link href="admin_lap/css/style.css" rel="stylesheet" />
+   <link href="admin_lap/css/style_responsive.css" rel="stylesheet" />
+   <link href="admin_lap/css/style_default.css" rel="stylesheet" id="style_color" />
+ 
+   <link rel="stylesheet" type="text/css" href="admin_lap/assets/uniform/css/uniform.default.css" />
+   <script src="admin_lap/js/jquery-1.8.3.min.js"></script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="fixed-top">
+   <!-- BEGIN HEADER -->
+   <div id="header" class="navbar navbar-inverse navbar-fixed-top">
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#header").load('./header.html');
+			});
+			</script>
+	</div>
+   <!-- END HEADER -->
+   <!-- BEGIN CONTAINER -->
+   <div id="container" class="row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        <div id="sidebar" class="nav-collapse collapse">
+		    <script type="text/javascript">
+			$(document).ready(function(){
+				$("#sidebar").load('./sidebar.html');
+			});
+			</script>
+	    </div>
+      <!-- END SIDEBAR -->
+      <!-- BEGIN PAGE -->
+      <div id="main-content">
+         <!-- BEGIN PAGE CONTAINER-->
+         <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+               <div class="span12">
+                   <!-- BEGIN THEME CUSTOMIZER-->
+                   <div id="theme-change" class="hidden-phone">
+                       <i class="icon-cogs"></i>
+                        <span class="settings">
+                            <span class="text">Theme:</span>
+                            <span class="colors">
+                                <span class="color-default" data-style="default"></span>
+                                <span class="color-gray" data-style="gray"></span>
+                                <span class="color-purple" data-style="purple"></span>
+                                <span class="color-navy-blue" data-style="navy-blue"></span>
+                            </span>
+                        </span>
+                   </div>
+                   <!-- END THEME CUSTOMIZER-->
+                  <!-- BEGIN PAGE TITLE & BREADCRUMB-->     
+                  <h3 class="page-title">
+                     日志
+                     <small>查看 删除 筛选日志</small>
+                  </h3>
+                   
+                  <!-- END PAGE TITLE & BREADCRUMB-->
+               </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->          
+            
+            <!-- BEGIN ADVANCED TABLE widget-->
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- BEGIN EXAMPLE TABLE widget-->
+                    <div class="widget">
+                     
+                        <div class="widget-body">
+                            <table class="table table-striped table-bordered" id="sample_1">
+                            <thead>
+                                <tr>
+                                    <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+                                     <th class="hidden-phone">级别</th>
+									<th>模块</th>
+                                    <th class="hidden-phone">详情</th> 
+                                    <th class="hidden-phone">时间</th>
+                                    <th class="hidden-phone">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd gradeX">
+                                    <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                                    <td class="hidden-zip"><span class="label label-warning">警告</span></td>
+                                    <td class="hidden-phone">shuxer</td>
+                                    <td >xiangqing</td>
+                                    <td class="center hidden-phone">12 Jan 2012</td>
+                                    <td class="hidden-phone"><a href="#" class="btn mini black"><i class="icon-trash"></i> Delete</a></td>
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                                    <td class="hidden-zip"><span class="label label-success">信息</span></td>
+                                    <td class="hidden-phone">gmail</td>
+                                    <td >xiangqing</td>
+                                    <td class="center hidden-phone">12.12.2011</td>
+                                    <td class="hidden-phone"><a href="#" class="btn mini black"><i class="icon-trash"></i> Delete</a></td>
+                                </tr>
+                                
+                                 
+                                <tr class="odd gradeX">
+                                    <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                                    <td class="hidden-zip"><span class="label label-error">错误</span></td>
+                                    <td class="hidden-phone">good</td>
+                                    <td  >详情</td>
+                                    <td class="center hidden-phone">15.11.2011</td>
+                                    <td class="hidden-phone"><a href="#" class="btn mini black"><i class="icon-trash"></i> Delete</a></td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- END EXAMPLE TABLE widget-->
+                </div>
+            </div>
+
+            <!-- END ADVANCED TABLE widget-->
+
+            <!-- END PAGE CONTENT-->
+         </div>
+         <!-- END PAGE CONTAINER-->
+      </div>
+      <!-- END PAGE -->
+   </div>
+   <!-- END CONTAINER -->
+   <!-- BEGIN FOOTER -->
+   <div id="footer">
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#footer").load('./footer.html');
+			});
+			</script>
+   </div>
+   <!-- END FOOTER -->
+   <!-- BEGIN JAVASCRIPTS -->
+   <!-- Load javascripts at bottom, this will reduce page load time -->
+ 
+   <script src="admin_lap/assets/bootstrap/js/bootstrap.min.js"></script>   
+   <script src="admin_lap/js/jquery.blockui.js"></script>
+   <!-- ie8 fixes -->
+   <!--[if lt IE 9]>
+   <script src="admin_lap/js/excanvas.js"></script>
+   <script src="admin_lap/js/respond.js"></script>
+   <![endif]-->   
+   <script type="text/javascript" src="admin_lap/assets/uniform/jquery.uniform.min.js"></script>
+   <script type="text/javascript" src="admin_lap/assets/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="admin_lap/assets/data-tables/DT_bootstrap.js"></script>
+   <script src="admin_lap/js/scripts.js"></script>
+   <script>
+      jQuery(document).ready(function() {       
+         // initiate layout and plugins
+         App.init();
+      });
+   </script>
+</body>
+<!-- END BODY -->
+</html>

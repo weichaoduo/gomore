@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+   <meta charset="utf-8" />
+   <title>Gomore</title>
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <link href="admin_lap/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="admin_lap/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+   <link href="admin_lap/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   <link href="admin_lap/css/style.css" rel="stylesheet" />
+   <link href="admin_lap/css/style_responsive.css" rel="stylesheet" />
+   <link href="admin_lap/css/style_default.css" rel="stylesheet" id="style_color" />
+ 
+   <link rel="stylesheet" type="text/css" href="admin_lap/assets/uniform/css/uniform.default.css" />
+    <script src="admin_lap/js/jquery-1.8.3.min.js"></script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="fixed-top">
+   <!-- BEGIN HEADER -->
+   <div id="header" class="navbar navbar-inverse navbar-fixed-top">
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#header").load('./header.html');
+			});
+			</script>
+	</div>
+   <!-- END HEADER -->
+   <!-- BEGIN CONTAINER -->
+   <div id="container" class="row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        <div id="sidebar" class="nav-collapse collapse">
+		    <script type="text/javascript">
+			$(document).ready(function(){
+				$("#sidebar").load('./sidebar.html');
+			});
+			</script>
+	    </div>
+      <!-- END SIDEBAR -->
+      <!-- BEGIN PAGE -->
+      <div id="main-content">
+         <!-- BEGIN PAGE CONTAINER-->
+         <div class="container-fluid">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row-fluid">
+               <div class="span12">
+                   <!-- BEGIN THEME CUSTOMIZER-->
+                   <div id="theme-change" class="hidden-phone">
+                       <i class="icon-cogs"></i>
+                        <span class="settings">
+                            <span class="text">Theme:</span>
+                            <span class="colors">
+                                <span class="color-default" data-style="default"></span>
+                                <span class="color-gray" data-style="gray"></span>
+                                <span class="color-purple" data-style="purple"></span>
+                                <span class="color-navy-blue" data-style="navy-blue"></span>
+                            </span>
+                        </span>
+                   </div>
+                   <!-- END THEME CUSTOMIZER-->
+                  <!-- BEGIN PAGE TITLE & BREADCRUMB-->     
+                  <h3 class="page-title">
+                     设置
+                     <small>查看 设置选项</small>
+                  </h3>
+                   
+                  <!-- END PAGE TITLE & BREADCRUMB-->
+               </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->          
+            
+           <div class="widget">
+                        <div class="widget-title">
+                            <h4><i class="icon-reorder"></i>Form Layouts</h4>
+                                        <span class="tools">
+                                        <a href="javascript:;" class="icon-chevron-down"></a>
+                                        <a href="javascript:;" class="icon-remove"></a>
+                                        </span>
+                        </div>
+                        <div class="widget-body">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal">
+                                <div class="control-group">
+                                    <label class="control-label">Mini Input</label>
+                                    <div class="controls">
+                                        <input type="text" placeholder=".input-mini" class="input-mini">
+                                        <span class="help-inline">Some hint here</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Small Input</label>
+                                    <div class="controls">
+                                        <input type="text" placeholder=".input-small" class="input-small">
+                                        <span class="help-inline">Some hint here</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Meduam Input</label>
+                                    <div class="controls">
+                                        <input type="text" placeholder=".input-medium" class="input-medium">
+                                        <span class="help-inline">Some hint here</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Large Input</label>
+                                    <div class="controls">
+                                        <input type="text" placeholder=".input-large" class="input-large">
+                                        <span class="help-inline">Some hint here</span>
+                                    </div>
+                                </div>
+                       
+                                <div class="control-group">
+                                    <label class="control-label">Small Dropdown</label>
+                                    <div class="controls">
+                                        <select class="input-small m-wrap" tabindex="1">
+                                            <option value="Category 1">Category 1</option>
+                                            <option value="Category 2">Category 2</option>
+                                            <option value="Category 3">Category 5</option>
+                                            <option value="Category 4">Category 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Medium Dropdown</label>
+                                    <div class="controls">
+                                        <select class="input-medium m-wrap" tabindex="1">
+                                            <option value="Category 1">Category 1</option>
+                                            <option value="Category 2">Category 2</option>
+                                            <option value="Category 3">Category 5</option>
+                                            <option value="Category 4">Category 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Large Dropdown</label>
+                                    <div class="controls">
+                                        <select class="input-large m-wrap" tabindex="1">
+                                            <option value="Category 1">Category 1</option>
+                                            <option value="Category 2">Category 2</option>
+                                            <option value="Category 3">Category 5</option>
+                                            <option value="Category 4">Category 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Radio Buttons</label>
+                                    <div class="controls">
+                                        <label class="radio">
+                                            <div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="option1" style="opacity: 0;"></span></div>
+                                            Option 1
+                                        </label>
+                                        <label class="radio">
+                                            <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" name="optionsRadios1" value="option2" checked="" style="opacity: 0;"></span></div>
+                                            Option 2
+                                        </label>
+                                        <label class="radio">
+                                            <div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="option2" style="opacity: 0;"></span></div>
+                                            Option 3
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Radio Buttons</label>
+                                    <div class="controls">
+                                        <label class="radio line">
+                                            <div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios2" value="option1" style="opacity: 0;"></span></div>
+                                            Option 1
+                                        </label>
+                                        <label class="radio line">
+                                            <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" name="optionsRadios2" value="option2" checked="" style="opacity: 0;"></span></div>
+                                            Option 2
+                                        </label>
+                                        <label class="radio line">
+                                            <div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios2" value="option2" style="opacity: 0;"></span></div>
+                                            Option 3
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Checkbox</label>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="" style="opacity: 0;"></span></div> Checkbox 1
+                                        </label>
+                                        <label class="checkbox">
+                                            <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="" style="opacity: 0;"></span></div> Checkbox 2
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Checkbox</label>
+                                    <div class="controls">
+                                        <label class="checkbox line">
+                                            <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="" style="opacity: 0;"></span></div> Checkbox 1
+                                        </label>
+                                        <label class="checkbox line">
+                                            <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="" style="opacity: 0;"></span></div> Checkbox 2
+                                        </label>
+                                    </div>
+                                </div>
+                           
+                                <div class="control-group">
+                                    <label class="control-label">Large Textarea</label>
+                                    <div class="controls">
+                                        <textarea class="input-large" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
+                                    <button type="button" class="btn"><i class=" icon-remove"></i> Cancel</button>
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+
+            <!-- END ADVANCED TABLE widget-->
+
+            <!-- END PAGE CONTENT-->
+         </div>
+         <!-- END PAGE CONTAINER-->
+      </div>
+      <!-- END PAGE -->
+   </div>
+   <!-- END CONTAINER -->
+   <!-- BEGIN FOOTER -->
+   <div id="footer">
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#footer").load('./footer.html');
+			});
+			</script>
+   </div>
+   <!-- END FOOTER -->
+   <!-- BEGIN JAVASCRIPTS -->
+   <!-- Load javascripts at bottom, this will reduce page load time -->
+ 
+   <script src="admin_lap/assets/bootstrap/js/bootstrap.min.js"></script>   
+   <script src="admin_lap/js/jquery.blockui.js"></script>
+   <!-- ie8 fixes -->
+   <!--[if lt IE 9]>
+   <script src="admin_lap/js/excanvas.js"></script>
+   <script src="admin_lap/js/respond.js"></script>
+   <![endif]-->   
+   <script type="text/javascript" src="admin_lap/assets/uniform/jquery.uniform.min.js"></script>
+   <script type="text/javascript" src="admin_lap/assets/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="admin_lap/assets/data-tables/DT_bootstrap.js"></script>
+   <script src="admin_lap/js/scripts.js"></script>
+   <script>
+      jQuery(document).ready(function() {       
+         // initiate layout and plugins
+         App.init();
+      });
+   </script>
+</body>
+<!-- END BODY -->
+</html>

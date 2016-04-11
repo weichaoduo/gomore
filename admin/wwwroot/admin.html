@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!--
+Template Name: Admin Lab Dashboard build with Bootstrap v2.3.1
+Template Version: 1.2
+Author: Mosaddek Hossain
+Website: http://thevectorlab.net/
+-->
+
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title> Gomore Dashboard</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link href="admin_lap/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="admin_lap/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="admin_lap/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="admin_lap/css/style.css" rel="stylesheet" />
+	<link href="admin_lap/css/style_responsive.css" rel="stylesheet" />
+	<link href="admin_lap/css/style_default.css" rel="stylesheet" id="style_color" />
+ 
+	<link rel="stylesheet" type="text/css" href="admin_lap/assets/uniform/css/uniform.default.css" />  
+	<script src="admin_lap/js/jquery-1.8.3.min.js"></script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="fixed-top">
+	<!-- BEGIN HEADER -->
+	<div id="header" class="navbar navbar-inverse navbar-fixed-top">
+		
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$("#header").load('./header.html');
+ 		});
+		</script>
+	</div>
+	<!-- END HEADER -->
+	<!-- BEGIN CONTAINER -->
+	<div id="container" class="row-fluid">
+		<!-- BEGIN SIDEBAR -->
+		<div id="sidebar" class="nav-collapse collapse">
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#sidebar").load('./sidebar.html');
+			});
+			</script>
+		</div>
+		<!-- END SIDEBAR -->
+		<!-- BEGIN PAGE -->
+		<div id="main-content">
+			<!-- BEGIN PAGE CONTAINER-->
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN THEME CUSTOMIZER-->
+						<div id="theme-change" class="hidden-phone">
+							<i class="icon-cogs"></i>
+							<span class="settings">
+                                <span class="text">风格:</span>
+                                <span class="colors">
+                                    <span class="color-default" data-style="default"></span>
+                                    <span class="color-gray" data-style="gray"></span>
+                                    <span class="color-purple" data-style="purple"></span>
+                                    <span class="color-navy-blue" data-style="navy-blue"></span>
+                                </span>
+							</span>
+						</div>
+						<!-- END THEME CUSTOMIZER-->
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+						<h3 class="page-title">
+							控制面板
+							<small> 仪表信息 </small>
+						</h3>
+						 
+						<!-- END PAGE TITLE & BREADCRUMB-->
+					</div>
+				</div>
+				<!-- END PAGE HEADER-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div id="page" class="dashboard">
+                    <!-- BEGIN OVERVIEW STATISTIC BLOCKS-->
+                    <div class="row-fluid circle-state-overview">
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                              
+                                <div class="details">
+                                    <div class="number">133</div>
+                                    <div class="title">并发数</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                                
+                                <div class="details">
+                                    <div class="number">987$</div>
+                                    <div class="title">吞吐量</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                                
+                                <div class="details">
+                                    <div class="number">99%</div>
+                                    <div class="title">CPU</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                                 
+                                <div class="details">
+                                    <div class="number">16.2G</div>
+                                    <div class="title">内存</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                                
+                                <div class="details">
+                                    <div class="number">90%</div>
+                                    <div class="title">网络</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="span2 responsive" data-tablet="span3" data-desktop="span2">
+                            <div class="circle-stat block">
+                                
+                                <div class="details">
+                                    <div class="number">478</div>
+                                    <div class="title">读写i/o</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OVERVIEW STATISTIC BLOCKS-->
+
+					<div class="row-fluid">
+						<div class="span6">
+							<!-- BEGIN SITE VISITS PORTLET-->
+							<div class="widget">
+								<div class="widget-title">
+									<h4><i class="icon-bar-chart"></i> Line Chart</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="javascript:;" class="icon-remove"></a>
+									</span>
+								</div>
+								<div class="widget-body">
+									<div id="site_statistics_loading">
+										<img src="admin_lap/img/loading.gif" alt="loading" />
+									</div>
+									<div id="site_statistics_content" class="hide">
+										<div id="site_statistics" class="chart"></div>
+									</div>
+								</div>
+							</div>
+							<!-- END SITE VISITS PORTLET-->
+						</div>
+                        <div class="span6">
+                            <!-- BEGIN SERVER LOAD PORTLET-->
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h4><i class="icon-umbrella"></i> Live Chart</h4>
+									<span class="tools">
+									<a href="javascript:;" class="icon-chevron-down"></a>
+									<a href="javascript:;" class="icon-remove"></a>
+									</span>
+                                </div>
+                                <div class="widget-body">
+                                    <div id="load_statistics_loading">
+                                        <img src="admin_lap/img/loading.gif" alt="loading" />
+                                    </div>
+                                    <div id="load_statistics_content" class="hide" style="margin: 0px 0 20px 0">
+                                        <div id="load_statistics" class="chart" style="height: 280px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END SERVER LOAD PORTLET-->
+                        </div>
+
+					</div>
+					<!-- BEGIN SQUARE STATISTIC BLOCKS-->
+                   
+                    <!-- END SQUARE STATISTIC BLOCKS-->
+				 
+                      
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <!-- BEGIN RECENT ORDERS PORTLET-->
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h4><i class="icon-tags"></i> Recent Order List</h4>
+                                        <span class="tools">
+                                        <a href="javascript:;" class="icon-chevron-down"></a>
+                                        <a href="javascript:;" class="icon-remove"></a>
+                                        </span>
+                                </div>
+                                <div class="widget-body">
+                                    <table class="table table-striped table-bordered table-advance table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th><i class="icon-leaf"></i> <span class="hidden-phone">From</span></th>
+                                            <th><i class="icon-user"></i> <span class="hidden-phone ">Contact</span></th>
+                                            <th><i class="icon-tags"> </i><span class="hidden-phone">Amount</span></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="info"></div>
+                                                <a href="#">ABC</a>
+                                            </td>
+                                            <td>Mosaddek Hossain</td>
+                                            <td>120.00$
+                                                <span class="label label-success label-mini">Paid</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a>
+                                            </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="warning"></div>
+                                                <a href="#">Lorem</a>
+                                            </td>
+                                            <td>Dulal khan</td>
+                                            <td>2000.50$
+                                                <span class="label label-success label-mini">Paid</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="success"></div>
+                                                <a href="#">Dolor imit</a>
+                                            </td>
+                                            <td>Rafiqul Ismal</td>
+                                            <td>490.50$
+                                                <span class="label label-warning label-mini">Pending</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="important"></div>
+                                                <a href="#">ABC</a>
+                                            </td>
+                                            <td>Sumon Ahmed</td>
+                                            <td>1000.00$ <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="success"></div>
+                                                <a href="#">Vector lab</a>
+                                            </td>
+                                            <td>Mosaddek</td>
+                                            <td>4890.60$
+                                                <span class="label label-warning label-mini">Paid</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="warning"></div>
+                                                <a href="#">Ipsum</a>
+                                            </td>
+                                            <td>Rafiqul Islam</td>
+                                            <td>3201.60$
+                                                <span class="label label-success label-mini">Pending</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="important"></div>
+                                                <a href="#">ABC</a>
+                                            </td>
+                                            <td>Dulal Khan</td>
+                                            <td>500.00$ <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="highlight">
+                                                <div class="warning"></div>
+                                                <a href="#">Vector lab</a>
+                                            </td>
+                                            <td>Mosaddek Hossain</td>
+                                            <td>5501.00$
+                                                <span class="label label-success label-mini">Paid</span>
+                                                <a href="#" class="btn btn-mini visible-phone hidden-tablet">View</a> </td>
+                                            <td><a href="#" class="btn btn-mini hidden-phone hidden-tablet">View</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="space7"></div>
+                                    <div class="clearfix">
+                                        <a href="#" class="btn btn-mini pull-right">All Orders</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END RECENT ORDERS PORTLET-->
+                        </div>
+
+					</div>  
+                 
+                         
+                   
+			 
+							<!-- BEGIN CALENDAR PORTLET-->
+						 
+							 
+							<!-- END CALENDAR PORTLET-->
+					 
+                        
+                            <!-- BEGIN TODO_LIST PORTLET-->
+                      
+					 
+                            <!-- END TODO_LIST PORTLET-->
+                       
+					 
+				</div>
+				<!-- END PAGE CONTENT-->
+			</div>
+			<!-- END PAGE CONTAINER-->
+		</div>
+		<!-- END PAGE -->
+	</div>
+	<!-- END CONTAINER -->
+	<!-- BEGIN FOOTER -->
+	<div id="footer">
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#footer").load('./footer.html');
+			});
+			</script>
+	</div>
+	<!-- END FOOTER -->
+	<!-- BEGIN JAVASCRIPTS -->
+	<!-- Load javascripts at bottom, this will reduce page load time -->
+	
+	<script src="admin_lap/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="admin_lap/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
+	<script src="admin_lap/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="admin_lap/js/jquery.blockui.js"></script>
+	<script src="admin_lap/js/jquery.cookie.js"></script>
+	<!-- ie8 fixes -->
+	<!--[if lt IE 9]>
+	<script src="admin_lap/js/excanvas.js"></script>
+	<script src="admin_lap/js/respond.js"></script>
+	<![endif]-->
+ 
+	<script src="admin_lap/assets/jquery-knob/js/jquery.knob.js"></script>
+	<script src="admin_lap/assets/flot/jquery.flot.js"></script>
+	<script src="admin_lap/assets/flot/jquery.flot.resize.js"></script>
+
+    <script src="admin_lap/assets/flot/jquery.flot.pie.js"></script>
+    <script src="admin_lap/assets/flot/jquery.flot.stack.js"></script>
+    <script src="admin_lap/assets/flot/jquery.flot.crosshair.js"></script>
+ 
+	<script src="admin_lap/js/scripts.js"></script>
+	<script>
+		jQuery(document).ready(function() {
+			// initiate layout and plugins
+			App.setMainPage(true);
+			App.init();
+		});
+	</script>
+	<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
