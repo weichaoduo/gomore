@@ -5,6 +5,7 @@ import (
 	"gomore/global"
 	"net/http"
 	"os"
+	"time"
 
 	cpu "github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
@@ -32,7 +33,10 @@ func statsTask(w http.ResponseWriter, req *http.Request) {
 	fmt.Printf("Total: %v, Free:%v, UsedPercent:%f%%\n", v.Total, v.Free, v.UsedPercent)
 	cpuf, _ := cpu.Percent(1, true)
 	fmt.Println("Percent:", cpuf)
-	str := fmt.Sprintf(`{"conns":%d,"qps":%d,"cpu_per":%v,"mem_total":"%v","mem_free":"%v" , "mem_use_per":"%f"}`, global.SumConnections, global.Qps, cpuf, v.Total, v.Free, v.UsedPercent)
+
+	now := time.Now().Format("15:04:05")
+	str := fmt.Sprintf(`{"time":"%s","conns":%d,"qps":%d,"cpu_per":%v,"mem_total":"%v","mem_free":"%v" , "mem_use_per":"%f"}`,
+		now, global.SumConnections, global.Qps, cpuf, v.Total, v.Free, v.UsedPercent)
 	w.Write([]byte(str))
 
 }

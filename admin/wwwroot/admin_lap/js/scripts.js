@@ -307,25 +307,7 @@ var App = function () {
                     // fix layout width
                     fixWidth();
                     // fix calendar width by just reinitializing
-                    handleDashboardCalendar();
-                    if (isMainPage) {
-                        handleDashboardCalendar(); // handles full calendar for main page
-                    } else {
-                        handleCalendar(); // handles full calendars
-                    }
-                    // fix vector maps width
-                    if (isMainPage) {
-                        jQuery('.vmaps').each(function () {
-                            var map = jQuery(this);
-                            map.width(map.parent().parent().width());
-                        });
-                    }
-                    if (isMapPage) {
-                        jQuery('.vmaps').each(function () {
-                            var map = jQuery(this);
-                            map.width(map.parent().width());
-                        });
-                    }
+                
                     // fix event form chosen dropdowns
                     $('#event_priority_chzn').width($('#event_title').width() + 15);
                     $('#event_priority_chzn .chzn-drop').width($('#event_title').width() + 13);
