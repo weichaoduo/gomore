@@ -15,7 +15,7 @@
 	
 	[log]
 		log_level	=	"info"
-		log_behind_type = "console"  
+		log_behind_type = "mongodb"  
 		mongodb_host = "localhost"
 		mongodb_port = "27017"
 	
