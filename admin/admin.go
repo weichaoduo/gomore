@@ -16,6 +16,7 @@ import (
 )
 
 type MongoLog struct {
+	Id_     bson.ObjectId `bson:"_id"`
 	Name    string
 	Level   string
 	File    string
@@ -26,6 +27,40 @@ type MongoLog struct {
 
 type Logs struct {
 	All []MongoLog
+}
+
+var (
+	mgoSession *mgo.Session
+	dataBase   = "gomore"
+)
+
+/**
+ * 公共方法，获取session，如果存在则拷贝一份
+ */
+func getSession() *mgo.Session {
+	if mgoSession == nil {
+		var err error
+		mgoSession, err = mgo.Dial(global.Config.Log.MongodbHost)
+		if err != nil {
+			panic(err) //直接终止程序运行
+		}
+	}
+	//最大连接池默认为4096
+	return mgoSession.Clone()
+}
+
+//公共方法，获取collection对象
+func witchCollection(collection string, s func(*mgo.Collection) error) error {
+	session := getSession()
+	defer session.Close()
+	c := session.DB(dataBase).C(collection)
+	return s(c)
+}
+
+func getCollection(collection string) *mgo.Collection {
+	session := getSession()
+	c := session.DB(dataBase).C(collection)
+	return c
 }
 
 /**
@@ -39,6 +74,8 @@ func HttpServer() {
 	http.Handle("/", http.FileServer(http.Dir(http_dir)))
 	http.HandleFunc("/stats", statsTask)
 	http.HandleFunc("/lastlogs", lastLogsTask)
+	http.HandleFunc("/searchLogs", searchLogsTask)
+
 	go func() {
 		http.ListenAndServe(":"+global.Config.Admin.HttpPort, nil)
 	}()
@@ -62,29 +99,57 @@ func statsTask(w http.ResponseWriter, req *http.Request) {
 func lastLogsTask(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("lastLogsTask is running...")
 
-	session, err := mgo.Dial(global.Config.Log.MongodbHost)
-	if err != nil {
-		panic(err)
-	}
+	session := getSession()
 	defer session.Close()
 
-	session.SetMode(mgo.Monotonic, true)
-	db := session.DB("gomore") //数据库名称
-	collection := db.C("logs")
+	collection := getCollection("logs")
 
 	ms := []MongoLog{}
-	err = collection.Find(bson.M{}).All(&ms)
+	err := collection.Find(bson.M{}).All(&ms)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println("All:", ms)
 	if b, err := json.Marshal(ms); err == nil {
-		fmt.Println("================struct 到json str==")
-		fmt.Println(string(b))
 		w.Write(b)
 	} else {
 		w.Write([]byte(`[]`))
 	}
 
+}
+
+func searchLogsTask(w http.ResponseWriter, req *http.Request) {
+
+	fmt.Println("searchLogsTask is running...")
+
+	session := getSession()
+	defer session.Close()
+
+	results, _ := SearchLog("logs", bson.M{}, `Time`, bson.M{}, 0, 100)
+
+	if b, err := json.Marshal(results); err == nil {
+		w.Write(b)
+	} else {
+		w.Write([]byte(`[]`))
+	}
+
+}
+
+/**
+ * 执行查询，此方法可拆分做为公共方法
+ * [Search description]
+ * @param {[type]} collectionName string [description]
+ * @param {[type]} query          bson.M [description]
+ * @param {[type]} sort           bson.M [description]
+ * @param {[type]} fields         bson.M [description]
+ * @param {[type]} skip           int    [description]
+ * @param {[type]} limit          int)   (results      []interface{}, err error [description]
+ */
+func SearchLog(collectionName string, query bson.M, sort string, fields bson.M, skip int, limit int) (results []interface{}, err error) {
+	exop := func(c *mgo.Collection) error {
+		return c.Find(query).Sort(sort).Select(fields).Skip(skip).Limit(limit).All(&results)
+	}
+	err = witchCollection(collectionName, exop)
+	return
 }

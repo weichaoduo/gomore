@@ -11,6 +11,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 	//"github.com/weekface/mgorus"
 	//"github.com/rifflock/lfshook"
 )
@@ -20,6 +21,7 @@ var SessionMongo *mgo.Session
 var CollectionMongo *mgo.Collection
 
 type MongoLog struct {
+	Id_     bson.ObjectId `bson:"_id"`
 	Name    string
 	Level   string
 	File    string
@@ -81,7 +83,7 @@ func log2Mongo(level string, args ...interface{}) {
 	CollectionMongo := SessionMongo.DB("gomore").C("logs")
 	_, file, line, _ := runtime.Caller(2)
 	fmt.Println("runtime.Caller", file, line)
-	err = CollectionMongo.Insert(&MongoLog{"", level, file, line, fmt.Sprint(args...), int(time.Now().Unix())})
+	err = CollectionMongo.Insert(&MongoLog{bson.NewObjectId(), "", level, file, line, fmt.Sprint(args...), int(time.Now().Unix())})
 	if err != nil {
 		fmt.Println(err)
 	}

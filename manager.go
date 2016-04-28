@@ -129,11 +129,10 @@ func main() {
 	//go start_php_worker()
 	go worker.Start()
 	golog.Info("Server started!")
-	golog.Debug("AAAs")
 	go admin.HttpServer()
 
 	// C:\gopath\mongodb\bin\mongod.exe --dbpath=C:\gopath\mongodb\data
-
+	// D:\soft\MongoDB\bin\mongod.exe --dbpath=D:\soft\MongoDB\data
 	select {}
 
 }
